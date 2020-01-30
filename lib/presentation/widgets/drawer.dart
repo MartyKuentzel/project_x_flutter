@@ -58,6 +58,20 @@ class MyDrawer extends StatelessWidget {
               Navigator.of(context).pushReplacementNamed('/find-product');
             },
           ),
+          ListTile(
+            title: Text(
+              "Sell Item",
+              style: this.currentPage == "Sell Item"
+                  ? TextStyle(fontWeight: FontWeight.bold)
+                  : TextStyle(fontWeight: FontWeight.normal),
+            ),
+            trailing: Icon(Icons.arrow_forward),
+            onTap: () {
+              Navigator.of(context).pop();
+              if (this.currentPage == "Sell Item") return;
+              Navigator.of(context).pushReplacementNamed('/sell-product');
+            },
+          ),
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_x_flutter/presentation/pages/home_page.dart';
 import 'package:project_x_flutter/presentation/pages/product_detail_page.dart';
 import 'package:project_x_flutter/presentation/pages/product_find_page.dart';
+import 'package:project_x_flutter/presentation/pages/product_sell_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,6 +13,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomePage());
       case '/find-product':
         return MaterialPageRoute(builder: (_) => FindProductPage());
+      case '/sell-product':
+        return MaterialPageRoute(builder: (_) => SellProductPage());
       case '/product-detail':
         // Validation of correct data type
         if (args is String) {

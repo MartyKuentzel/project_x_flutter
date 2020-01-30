@@ -48,7 +48,13 @@ class HomePage extends StatelessWidget {
             if (state is Empty || state is Loading) {
               return LoadingWidget();
             } else if (state is LoadedProducts) {
-              return ProductList(products: state.products);
+              return RefreshIndicator(
+                  onRefresh: () {
+                    BlocProvider.of<ProductBloc>(context)
+                        .add(GetDetailsForProducts());
+                    return Future.value(null);
+                  },
+                  child: ProductList(products: state.products));
             } else if (state is Error) {
               return MessageDisplay(
                 message: state.message,

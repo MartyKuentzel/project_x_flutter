@@ -10,6 +10,8 @@ import 'package:project_x_flutter/domain/usecases/update_product.dart';
 import 'package:project_x_flutter/presentation/bloc/product/product_bloc.dart';
 import 'package:grpc/grpc.dart';
 
+import 'data/datasource/product_fake_remote_datasoure.dart';
+
 final sl = GetIt.instance;
 
 Future<void> init() async {
@@ -41,11 +43,12 @@ Future<void> init() async {
 
   // Data sources
   sl.registerLazySingleton<ProductRemoteDatasource>(
-    () => ProductRemoteDatasourceImpl(channel: sl()),
+    //() => ProductRemoteDatasourceImpl(channel: sl()),
+    () => ProductFakeRemoteDatasourceImpl(),
   );
 
-  //! External
-  sl.registerLazySingleton(() => ClientChannel("10.0.2.2",
-      port: 8080,
-      options: ChannelOptions(credentials: ChannelCredentials.insecure())));
+//   //! External
+//   sl.registerLazySingleton(() => ClientChannel("10.0.2.2",
+//       port: 8080,
+//       options: ChannelOptions(credentials: ChannelCredentials.insecure())));
 }
