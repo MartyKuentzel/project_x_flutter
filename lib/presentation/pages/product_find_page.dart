@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_x_flutter/presentation/widgets/drawer.dart';
+import 'package:project_x_flutter/presentation/routes/routes.dart';
+import 'package:project_x_flutter/presentation/widgets/base_layout.dart';
 
 class FindProductPage extends StatefulWidget {
   @override
@@ -9,12 +10,6 @@ class FindProductPage extends StatefulWidget {
 class _FindProductPageState extends State<FindProductPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Find Item'),
-      ),
-      body: Center(child: Text("hi")),
-      drawer: MyDrawer("Find Item"),
-    );
+    return BaseLayout(pageTitle: FIND_PRODUCT, body: Center(child: Text("Hi")));
   }
 }

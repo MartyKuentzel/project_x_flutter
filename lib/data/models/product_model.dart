@@ -1,4 +1,5 @@
 import 'package:project_x_flutter/core/api/v1/product-service.pb.dart';
+import 'package:project_x_flutter/core/api/v1/timestamp.pb.dart';
 import 'package:project_x_flutter/domain/entities/product.dart';
 import 'package:meta/meta.dart';
 import 'package:fixnum/fixnum.dart';
@@ -41,6 +42,7 @@ class ProductModel extends Product {
       ..name = name
       ..price = price
       ..creator = creator
-      ..description = description;
+      ..description = description
+      ..date = Timestamp.fromDateTime(DateTime.now());
   }
 }

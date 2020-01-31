@@ -43,11 +43,11 @@ Future<void> init() async {
 
   // Data sources
   sl.registerLazySingleton<ProductRemoteDatasource>(
-    //() => ProductRemoteDatasourceImpl(channel: sl()),
+    //   () => ProductRemoteDatasourceImpl(channel: sl()),
     () => ProductFakeRemoteDatasourceImpl(),
   );
 
-//   //! External
+// //   //! External
 //   sl.registerLazySingleton(() => ClientChannel("10.0.2.2",
 //       port: 8080,
 //       options: ChannelOptions(credentials: ChannelCredentials.insecure())));

@@ -1,19 +1,18 @@
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:fixnum/fixnum.dart';
 
 import '../../core/error/failures.dart';
 import '../../core/usecases/usecase.dart';
 import '../entities/product.dart';
 import '../repositories/product_repository.dart';
 
-class GetProductDetails implements UseCase<Product, Params> {
+class GetProductDetails implements UseCaseWithParams<Product, Int64> {
   final ProductRepository repository;
 
   GetProductDetails(this.repository);
 
   @override
-  Future<Either<Failure, Product>> call(Params params) async {
-    return await repository.getProductDetails(params.id);
+  Future<Either<Failure, Product>> call(Int64 id) async {
+    return await repository.getProductDetails(id);
   }
 }

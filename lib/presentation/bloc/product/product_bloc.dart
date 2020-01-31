@@ -48,28 +48,33 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   Stream<ProductState> mapEventToState(
     ProductEvent event,
   ) async* {
-    if (event is GetDetailsForProducts) {
+    if (event is GetAllProductEntries) {
       yield Loading();
-      final failureOrProduct = await getAllProducts(NoParams());
-      yield* _eitherLoadedProductsOrErrorState(failureOrProduct);
-    } else if (event is GetDetailsForProduct) {
+      final failureOrProduct = await getAllProducts();
+      yield failureOrProduct.fold(
+        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (products) => LoadedProducts(products: products),
+      );
+    } else if (event is GetOneProductEntry) {
       yield Loading();
-      final failureOrProduct = await getProductDetails(Params(id: event.id));
+      final failureOrProduct = await getProductDetails(event.id);
       yield* _eitherLoadedOrErrorState(failureOrProduct);
     } else if (event is DeleteProductEntry) {
       yield Loading();
-      final failureOrProduct = await deleteProduct(Params(id: event.id));
+      final failureOrProduct = await deleteProduct(event.id);
       yield* _eitherLoadedOrErrorState(failureOrProduct);
     } else if (event is UpdateProductEntry) {
       yield Loading();
-      final failureOrProduct =
-          await updateProduct(ProductParams(product: event.product));
+      final failureOrProduct = await updateProduct(event.product);
       yield* _eitherLoadedOrErrorState(failureOrProduct);
     } else if (event is CreateProductEntry) {
       yield Loading();
-      final failureOrProduct =
-          await createProduct(ProductParams(product: event.product));
-      yield* _eitherLoadedOrErrorState(failureOrProduct);
+      final failureOrProduct = await createProduct(event.product);
+
+      yield failureOrProduct.fold(
+        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (success) => ProductCreated(),
+      );
     }
   }
 
@@ -79,15 +84,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     yield failureOrProduct.fold(
       (failure) => Error(message: _mapFailureToMessage(failure)),
       (product) => Loaded(product: product),
-    );
-  }
-
-  Stream<ProductState> _eitherLoadedProductsOrErrorState(
-    Either<Failure, List<Product>> failureOrProduct,
-  ) async* {
-    yield failureOrProduct.fold(
-      (failure) => Error(message: _mapFailureToMessage(failure)),
-      (products) => LoadedProducts(products: products),
     );
   }
 

@@ -9,12 +9,12 @@ abstract class ProductEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetDetailsForProducts extends ProductEvent {}
+class GetAllProductEntries extends ProductEvent {}
 
-class GetDetailsForProduct extends ProductEvent {
+class GetOneProductEntry extends ProductEvent {
   final Int64 id;
 
-  GetDetailsForProduct(this.id);
+  GetOneProductEntry(this.id);
 
   @override
   List<Object> get props => [id];

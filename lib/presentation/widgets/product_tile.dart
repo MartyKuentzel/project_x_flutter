@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:project_x_flutter/domain/entities/product.dart';
 
-class ProductListItem extends StatelessWidget {
+class ProductTile extends StatelessWidget {
   final Product product;
   final ThemeData theme;
   //final NumberFormat formatter;
 
-  ProductListItem({@required this.product, this.theme});
+  ProductTile({@required this.product, this.theme});
 
   @override
   Widget build(BuildContext context) {

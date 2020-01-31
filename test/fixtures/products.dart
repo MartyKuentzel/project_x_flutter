@@ -4,7 +4,7 @@ import 'package:fixnum/fixnum.dart';
 final products = <Product>[
   Product(
       category: 'bla',
-      id: 1 as Int64,
+      id: Int64(1),
       unit: 'kg',
       name: 'bla Product',
       creator: 'mkuentzel@web.de',
@@ -12,7 +12,7 @@ final products = <Product>[
       description: 'blabla'),
   Product(
       category: 'bla',
-      id: 2 as Int64,
+      id: Int64(2),
       unit: 'kg',
       name: 'bla Product',
       creator: 'mkuentzel@web.de',
@@ -20,7 +20,7 @@ final products = <Product>[
       description: 'blabla'),
   Product(
       category: 'bla',
-      id: 3 as Int64,
+      id: Int64(3),
       unit: 'kg',
       name: 'bla Product',
       creator: 'mkuentzel@web.de',
@@ -28,7 +28,7 @@ final products = <Product>[
       description: 'blabla'),
   Product(
       category: 'bla',
-      id: 4 as Int64,
+      id: Int64(4),
       unit: 'kg',
       name: 'bla Product',
       creator: 'mkuentzel@web.de',

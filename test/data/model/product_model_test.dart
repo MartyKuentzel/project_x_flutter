@@ -6,7 +6,7 @@ import 'package:fixnum/fixnum.dart';
 void main() {
   final tProductModel = ProductModel(
       category: 'bla',
-      id: 1 as Int64,
+      id: Int64(1),
       unit: 'kg',
       name: 'bla Product',
       creator: 'mkuentzel@web.de',

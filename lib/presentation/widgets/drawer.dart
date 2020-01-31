@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_x_flutter/presentation/bloc/product/bloc.dart';
+import 'package:project_x_flutter/presentation/routes/routes.dart';
 
 class MyDrawer extends StatelessWidget {
   MyDrawer(this.currentPage);
@@ -30,50 +33,53 @@ class MyDrawer extends StatelessWidget {
                   child: Icon(Icons.arrow_back, color: Colors.white, size: 40)),
             ],
           ),
-          ListTile(
-            title: Text(
-              "Home",
-              style: this.currentPage == "Home"
-                  ? TextStyle(fontWeight: FontWeight.bold)
-                  : TextStyle(fontWeight: FontWeight.normal),
-            ),
-            trailing: Icon(Icons.arrow_forward),
-            onTap: () {
-              Navigator.of(context).pop();
-              if (this.currentPage == "Home") return;
-              Navigator.of(context).pushReplacementNamed('/');
-            },
+          DrawerListTile(
+            currentPage: this.currentPage,
+            pageTitle: HOME,
+            onTap: () => BlocProvider.of<ProductBloc>(context)
+                .add(GetAllProductEntries()),
           ),
-          ListTile(
-            title: Text(
-              "Find Item",
-              style: this.currentPage == "Find Item"
-                  ? TextStyle(fontWeight: FontWeight.bold)
-                  : TextStyle(fontWeight: FontWeight.normal),
-            ),
-            trailing: Icon(Icons.arrow_forward),
-            onTap: () {
-              Navigator.of(context).pop();
-              if (this.currentPage == "Find Item") return;
-              Navigator.of(context).pushReplacementNamed('/find-product');
-            },
+          DrawerListTile(
+            currentPage: this.currentPage,
+            pageTitle: SELL_PRODUCT,
           ),
-          ListTile(
-            title: Text(
-              "Sell Item",
-              style: this.currentPage == "Sell Item"
-                  ? TextStyle(fontWeight: FontWeight.bold)
-                  : TextStyle(fontWeight: FontWeight.normal),
-            ),
-            trailing: Icon(Icons.arrow_forward),
-            onTap: () {
-              Navigator.of(context).pop();
-              if (this.currentPage == "Sell Item") return;
-              Navigator.of(context).pushReplacementNamed('/sell-product');
-            },
+          DrawerListTile(
+            currentPage: this.currentPage,
+            pageTitle: FIND_PRODUCT,
           ),
         ],
       ),
+    );
+  }
+}
+
+typedef void _OnTap();
+
+class DrawerListTile extends StatelessWidget {
+  final String currentPage;
+  final String pageTitle;
+  final _OnTap onTap;
+
+  DrawerListTile(
+      {@required this.currentPage, @required this.pageTitle, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        this.pageTitle,
+        style: this.currentPage == this.pageTitle
+            ? TextStyle(fontWeight: FontWeight.bold)
+            : TextStyle(fontWeight: FontWeight.normal),
+      ),
+      trailing: Icon(Icons.arrow_forward),
+      onTap: () {
+        if (this.onTap != null) onTap();
+        BlocProvider.of<ProductBloc>(context).add(GetAllProductEntries());
+        Navigator.of(context).pop();
+        if (this.currentPage == this.pageTitle) return;
+        Navigator.of(context).pushReplacementNamed(routeMapper[this.pageTitle]);
+      },
     );
   }
 }

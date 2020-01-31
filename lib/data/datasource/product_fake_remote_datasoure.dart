@@ -36,7 +36,7 @@ class ProductFakeRemoteDatasourceImpl implements ProductRemoteDatasource {
   @override
   Future<void> createProduct(ProductModel productModel) async {
     try {
-      print('Product created with ');
+      print('Fake Product created');
     } catch (e) {
       print('Caught error: $e');
       throw ServerException();

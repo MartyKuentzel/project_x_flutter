@@ -12,6 +12,8 @@ class Empty extends ProductState {}
 
 class Loading extends ProductState {}
 
+class ProductCreated extends ProductState {}
+
 class Loaded extends ProductState {
   final Product product;
 

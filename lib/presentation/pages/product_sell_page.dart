@@ -1,5 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_x_flutter/data/models/product_model.dart';
+import 'package:project_x_flutter/presentation/bloc/product/bloc.dart';
+import 'package:project_x_flutter/presentation/routes/routes.dart';
+import 'package:project_x_flutter/presentation/widgets/base_layout.dart';
 import 'package:project_x_flutter/presentation/widgets/drawer.dart';
+
+import 'package:fixnum/fixnum.dart';
 
 class SellProductPage extends StatefulWidget {
   @override
@@ -10,12 +18,16 @@ class _SellProductPageState extends State<SellProductPage> {
   final controller = TextEditingController();
   String inputStr;
 
+  String _name;
+  String _description;
+  String _category;
+  String _price;
+  String _unit;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Sell Item'),
-        ),
+    return BaseLayout(
+        pageTitle: SELL_PRODUCT,
         body: SingleChildScrollView(
             child: Center(
                 child: Column(children: <Widget>[
@@ -25,7 +37,7 @@ class _SellProductPageState extends State<SellProductPage> {
             padding: const EdgeInsets.all(15.0),
             child: Column(children: [
               TextField(
-                controller: controller,
+                //  controller: controller,
                 textAlign: TextAlign.left,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -34,16 +46,14 @@ class _SellProductPageState extends State<SellProductPage> {
                   ),
                   hintText: 'Name des Produktes',
                 ),
-                onChanged: (value) {
-                  inputStr = value;
-                },
+                onChanged: (val) => setState(() => _name = val),
                 onSubmitted: (_) {
                   print("was");
                 },
               ),
               SizedBox(height: 10),
               TextField(
-                controller: controller,
+                //     controller: controller,
                 textAlign: TextAlign.left,
                 maxLines: 4,
                 decoration: InputDecoration(
@@ -52,16 +62,14 @@ class _SellProductPageState extends State<SellProductPage> {
                       borderRadius: BorderRadius.circular(10.0),
                       borderSide: BorderSide()),
                 ),
-                onChanged: (value) {
-                  inputStr = value;
-                },
+                onChanged: (val) => setState(() => _description = val),
                 onSubmitted: (_) {
                   print("was");
                 },
               ),
               SizedBox(height: 10),
               TextField(
-                controller: controller,
+                //     controller: controller,
                 textAlign: TextAlign.left,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -70,9 +78,7 @@ class _SellProductPageState extends State<SellProductPage> {
                   ),
                   hintText: 'Kategorie',
                 ),
-                onChanged: (value) {
-                  inputStr = value;
-                },
+                onChanged: (val) => setState(() => _category = val),
                 onSubmitted: (_) {
                   print("was");
                 },
@@ -102,7 +108,7 @@ class _SellProductPageState extends State<SellProductPage> {
                 children: <Widget>[
                   Expanded(
                       child: TextField(
-                    controller: controller,
+                    //         controller: controller,
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
@@ -112,9 +118,7 @@ class _SellProductPageState extends State<SellProductPage> {
                       ),
                       hintText: 'Preis',
                     ),
-                    onChanged: (value) {
-                      inputStr = value;
-                    },
+                    onChanged: (val) => setState(() => _price = val),
                     onSubmitted: (_) {
                       print("was");
                     },
@@ -122,7 +126,7 @@ class _SellProductPageState extends State<SellProductPage> {
                   SizedBox(width: 10),
                   Expanded(
                       child: TextField(
-                    controller: controller,
+                    //         controller: controller,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -131,9 +135,7 @@ class _SellProductPageState extends State<SellProductPage> {
                       ),
                       hintText: 'Pro Menge',
                     ),
-                    onChanged: (value) {
-                      inputStr = value;
-                    },
+                    onChanged: (val) => setState(() => _unit = val),
                     onSubmitted: (_) {
                       print("was");
                     },
@@ -152,11 +154,22 @@ class _SellProductPageState extends State<SellProductPage> {
                 child: Text('Sell Item'),
                 color: Theme.of(context).accentColor,
                 textTheme: ButtonTextTheme.primary,
-                onPressed: () => print("ih"),
+                onPressed: dispatchCreateProduct,
               ),
             ),
           )
-        ]),
-        drawer: MyDrawer("Sell Item"));
+        ]));
+  }
+
+  void dispatchCreateProduct() {
+    print("submit");
+    BlocProvider.of<ProductBloc>(context).add(CreateProductEntry(ProductModel(
+        category: _category,
+        name: _name,
+        unit: _unit,
+        price: _price,
+        creator: "marty",
+        id: Int64(0),
+        description: _description)));
   }
 }

@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:project_x_flutter/core/usecases/usecase.dart';
 import 'package:project_x_flutter/domain/repositories/product_repository.dart';
 import 'package:project_x_flutter/domain/usecases/get_all_products.dart';
 import '../../fixtures/products.dart';
@@ -27,7 +26,7 @@ void main() {
       when(mockNumberProductRepository.getAllProducts())
           .thenAnswer((_) async => Right(products));
       // The "act" phase of the test. Call the not-yet-existent method.
-      final result = await usecase(NoParams());
+      final result = await usecase();
       // UseCase should simply return whatever was returned from the Repository
       expect(result, Right(products));
       // Verify that the method has been called on the Repository
